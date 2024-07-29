@@ -1,0 +1,59 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>끝말잇기</title>
+</head>
+<body>
+    <div><span id="order">1</span></div>
+    <div>제시어: <span id="word"></span></div>
+    <input type="text">
+    <button>입력</button>
+    <script>
+        const number=Number(prompt('참가자는 몇 명인가요?'));
+        const $input=document.querySelector('input');
+        const $button=document.querySelector('button');
+        const $word=document.querySelector('#word');
+        const $order=document.querySelector('#order');
+        let word; //제시어
+        let newWord; //현재 단어
+        const onInput=(event)=> {
+            newWord=event.target.value; //입력한 단어를 현재 단어로 자장
+        };
+        const onClickButton=()=> { //제시한 단어가 비어있거나 입력한 단어가 맞는 단어인가?
+            if (!word || word.at(-1) === newWord[0]) {
+                word=newWord; //입력한 단어가 제시어가 됨
+                $word.textContent=word; //화면에 제시어 표시
+                const order=Number($order.textContent);
+                if (order + 1 > number) {
+                    $order.textContent=1;
+                } else { 
+                    $order.textContent=order+1;
+                }
+                $input.value='';
+                $input.focus();
+             } else {
+                if (word.at(-1) === newWord[0]) {
+                    word=newWord;
+                    $word.textContent=word;
+                    const order=Number($order.textContent);
+                    if (order +1 > number) {
+                        $order.textContent=1;
+                    } else {
+                        $order.textContent=order+1;
+                    }
+                    $input.value='';
+                    $input.focus();
+                } else { //틀린 단어
+                    alert('틀린 단어입니다!');
+                    $input.value='';
+                    $input.focus();
+                }
+             }
+         };
+        $input.addEventListener('input', onInput);
+        $button.addEventListener('click', onClickButton);
+    </script>
+</body>
+</html>
